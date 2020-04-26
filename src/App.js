@@ -1,54 +1,42 @@
-import React, { Fragment } from "react";
-// import PrimerComponente from "./components/PrimerComponente";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import ListaProductos from "./components/ListaProductos";
+import React, { useState } from "react";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Producto from "./components/Producto.jsx";
+import Carrito from "./components/Carrito.jsx";
 
 function App() {
-  // const empleado = {
-  //   nombre: "Matías Troncoso",
-  //   trabajo: "Informático"
-  // };
+  // Crear State para listado de productos
+  const [productos] = useState([
+    { id: 1, nombre: "Camisa ReactJs", precio: 50 },
+    { id: 2, nombre: "Camisa VueJs", precio: 50 },
+    { id: 3, nombre: "Camisa NodeJs", precio: 50 },
+  ]);
 
+  // State para un carrito de compras
+  const [carrito, setCarrito] = useState([]);
+
+  // Obtener la fecha
   const fecha = new Date().getFullYear();
+
   return (
-    // VIDEOS 39 AL
-    <Fragment>
+    <>
       <Header titulo="Tienda Virtual" />
-
-      <ListaProductos />
-
+      <h1>Lista de Productos</h1>
+      {productos.map((producto, index) => (
+        <Producto
+          key={index}
+          producto={producto}
+          productos={productos}
+          carrito={carrito}
+          setCarrito={setCarrito}
+        />
+      ))}
+      <Carrito 
+        carrito={carrito}
+        setCarrito = {setCarrito}
+        />
       <Footer fecha={fecha} />
-    </Fragment>
-
-    // VIDEOS 35 AL 36
-    // con jsx, fragment reemplaza a los div (para no sobrecargar el html con divs)
-    // <Fragment>
-    //   <h1>{empleado.nombre}</h1>
-    //   <p>{empleado.trabajo}</p>
-    // </Fragment>
-    // sin jsx
-    // React.createElement(
-    //   "h1",
-    //   {id: "heading", className: "heading"},
-    //   "Hola Mundo",
-    // React.createElement(
-    //   "div",
-    //   null,
-    //   React.createElement(
-    //     "input",
-    //     {type: "text", value: "Nombre de usuario"}
-    //   )
-    // )
-    // )
-    // FIN VIDEOS 35 AL 36
-
-    // VIDEOS 37 AL 38
-    // <Fragment>
-    //   <PrimerComponente />
-    //   <PrimerComponente />
-    // </Fragment>
-    // FIN VIDEOS 37 AL 38
+    </>
   );
 }
 
